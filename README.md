@@ -4,14 +4,14 @@ The goal of this project was to develop a book sales module in ODOO along with a
 
 ## Features
 
-## ODOO
+### ODOO
 
 * View/Add/Delete/Edit Books
 * Consult the authors of the books and classify them by number of books written
 * User can like books
 * Integration of inventory and sales management for the books
 
-## Django interface
+### Django interface
 
 * Configure an ODOO connection
 * Search books based on the name
@@ -55,7 +55,7 @@ Once it's done you can connect to [localhost:8069](http://localhost:8069/) and s
 
 You can then install the module `esi_lecture` and start using it by accesing the menu `ESI LECTURE`.
 
-#### DJANGO interface (Virtual environement)
+### DJANGO APP (Virtual environement)
 
 #### Prerequisites
 
@@ -71,8 +71,30 @@ cd django_interface/
 
 Create virtual environement:
 
+```
+python -m venv .venv
+```
 
+Activate virtual environement:
 
+```
+.venv\Scripts\activate
+```
+
+Install necessary python packages : 
+
+```
+pip install -r requirements.txt
+```
+
+Navigate to the django project and run Django development server :
+
+```
+cd esi_lecture_client
+python manage.py runserver
+```
+
+You can then go to [localhost:8000](http://localhost:800) and start using the Django Interface to interact with ODOO (via an API : XML-RPC).
 
 
 
