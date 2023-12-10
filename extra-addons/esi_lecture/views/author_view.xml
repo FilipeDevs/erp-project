@@ -1,0 +1,29 @@
+<odoo>
+    <!-- Les vues associées aux auteurs -->
+
+    <!-- Extention de vue pour rajouter un filtre custom -->
+    <record id="view_partner_tree_extension" model="ir.ui.view">
+        <field name="name">res.partner.filter.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <!-- Filtrer par auteur -->
+            <xpath expr="//filter[@name='type_person']" position="before">
+                <filter string="Auteurs" name="is_author" domain="[('is_author','=',True)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extentsion de vue pour ajouter de nouveaux fields (livres et auteur) -->
+    <record model="ir.ui.view" id="extend_partner_view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="is_author" string="Auteur" />
+                <field name="book_ids" string="Livres" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

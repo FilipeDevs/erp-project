@@ -1,0 +1,38 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container d-flex flex-column align-items-center justify-content-center text-center">
+    <h1 class="mb-4">Connexion Odoo</h1>
+
+    <form method="post" action="{% url 'odoo_config:test_connect' %}" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form }}
+        </div>
+        <button type="submit" class="btn btn-primary">Tester la connexion</button>
+    </form>
+
+
+    <div class="alert mb-4 text-center">
+        <h3 class="mb-3">Résultat du test de connexion</h3>
+        {% if messages %}
+        <ul class="messages mt-5 ">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }} d-inline-block" {% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <span class="alert alert-success">{{ message }}</span>
+                {% endif %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <span class="alert alert-danger">{{ message }}</span>
+                {% endif %}
+                </li>
+                {% endfor %}
+        </ul>
+        {% else %}
+        <span class="alert alert-info">Aucun résultat...</span>
+        {% endif %}
+    </div>
+
+
+</div>
+{% endblock %}

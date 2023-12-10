@@ -1,0 +1,80 @@
+<odoo>
+
+    <!-- Vues associés aux livres -->
+
+
+    <!-- Vue formulaire de Book -->
+    <record id="view_book_form" model="ir.ui.view">
+        <field name="name">book.form</field>
+        <field name="model">esi_lecture.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <button type="object" name="toggle_like" class="oe_highlight" icon="fa-thumbs-up" string="Like"/>
+                        <span style="margin-left: 5px;">
+                            <field name="likes_count" widget="statinfo"/>
+                        </span>
+                    </div>
+                    <field name="like_message" widget="text" options="{'invisible': [('liked_book', '=', False)]}"/>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="name" string="Titre"/>
+                            <field name="authors" widget="many2many_tags" options="{'no_create_edit': True}" string="Auteurs"/>
+                            <field name="page_count" string="Pages"/>
+                            <field name="description" type="html" string="Description"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="publication_date" string="Date de publication"/>
+                            <field name="cover_image" widget="image" options="{'size': [150, 210]}"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue liste de Book -->
+    <record id="view_tree_esi_lecture_book" model="ir.ui.view">
+        <field name="name">book.tree</field>
+        <field name="model">esi_lecture.book</field>
+        <field name="arch" type="xml">
+            <tree string="Book Tree">
+                <field name="name" string="Titre"/>
+                <field name="publication_date" string="Date de publication"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Ajout filtre (livres sans auteurs) -->
+    <record id="view_filter_esi_lecture_livre" model="ir.ui.view">
+        <field name="name">book.filter</field>
+        <field name="model">esi_lecture.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <filter string="Sans auteur" name="filter_no_authors" domain="[('authors','=', False)]" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Extension de la vue Product pour ajouter un nouvel onglet et pouvoir ajouter des livres -->
+    <record id="view_product_template_form_extension" model="ir.ui.view">
+        <field name="name">product.template.form.extension</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <!-- Nouvel onglet "Librairie" -->
+                <page string="Librairie" name="library_page">
+                    <group>
+                        <field name="book_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Livres"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+
+</odoo>

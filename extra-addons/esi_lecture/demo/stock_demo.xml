@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Resource: stock.inventory -->
+        <record id="stock_inventory_0" model="stock.inventory">
+            <field name="name">Books Inventory</field>
+        </record>
+
+        <!-- Templating -->
+        <record id="book_template_1" model="product.template">
+            <field name="name">Harry Potter I</field>
+            <field name="book_ids" eval="[(6, 0, [ref('book_harry_potter_1')])]"></field>
+            <field name="type">product</field>
+            <field name="list_price">9.00</field>
+            <field name="available_in_pos" eval="True"/>
+        </record>
+
+        <record id="book_template_2" model="product.template">
+            <field name="name">Harry Potter II</field>
+            <field name="book_ids" eval="[(6, 0, [ref('book_harry_potter_2')])]"></field>
+            <field name="type">product</field>
+            <field name="list_price">15.00</field>
+             <field name="available_in_pos" eval="True"/>
+        </record>
+
+        <record id="book_template_3" model="product.template">
+            <field name="name">Harry Potter III</field>
+            <field name="book_ids" eval="[(6, 0, [ref('book_harry_potter_3')])]"></field>
+            <field name="type">product</field>
+            <field name="list_price">12.00</field>
+             <field name="available_in_pos" eval="True"/>
+        </record>
+
+        <record id="book_template_4" model="product.template">
+            <field name="name">Dune I</field>
+            <field name="book_ids" eval="[(6, 0, [ref('book_dune_1')])]"></field>
+            <field name="type">product</field>
+            <field name="list_price">12.00</field>
+            <field name="available_in_pos" eval="True"/>
+        </record>
+
+        <!-- Stock initial des livres -->
+        <record id="tock_inventory_line_1" model="stock.inventory.line">
+            <field name="product_id" ref="book_template_1"/>
+            <field name="inventory_id" ref="stock_inventory_0"/>
+            <field name="product_qty">7.0</field>
+            <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+        </record>
+
+        <record id="tock_inventory_line_2" model="stock.inventory.line">
+            <field name="product_id" ref="book_template_2"/>
+            <field name="inventory_id" ref="stock_inventory_0"/>
+            <field name="product_qty">15.0</field>
+            <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+        </record>
+
+        <record id="tock_inventory_line_3" model="stock.inventory.line">
+            <field name="product_id" ref="book_template_3"/>
+            <field name="inventory_id" ref="stock_inventory_0"/>
+            <field name="product_qty">35.0</field>
+            <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+        </record>
+
+        <record id="stock_inventory_line_4" model="stock.inventory.line">
+            <field name="product_id" ref="book_template_4"/>
+            <field name="inventory_id" ref="stock_inventory_0"/>
+            <field name="product_qty">25.0</field>
+            <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+        </record>
+
+        <function model="stock.inventory" name="_action_start">
+            <function eval="[[('state','=','draft'),('id', '=', ref('stock_inventory_0'))]]" model="stock.inventory" name="search"/>
+        </function>
+        <function model="stock.inventory" name="action_validate">
+            <function eval="[[('state','=','confirm'),('id', '=', ref('stock_inventory_0'))]]" model="stock.inventory" name="search"/>
+        </function>
+
+    </data>
+</odoo>
+

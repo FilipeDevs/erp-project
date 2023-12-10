@@ -1,0 +1,59 @@
+<odoo>
+    <!-- Menus -->
+
+    <!-- Action pour ouvrir la vue liste des livres -->
+    <record id="book_list_action" model="ir.actions.act_window">
+        <field name="name">Livres</field>
+        <field name="res_model">esi_lecture.book</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action pour ouvrir la liste des auteurs -->
+    <record id="action_author" model="ir.actions.act_window">
+        <field name="name">Auteurs</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_is_author': 1}</field>
+    </record>
+
+    <!-- Action pour ouvrir la liste des produits -->
+    <record id="product_template_list_action" model="ir.actions.act_window">
+        <field name="name">Produits</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action pour ouvrir le formulaire de création d'un produit -->
+    <record id="product_template_form_action" model="ir.actions.act_window">
+        <field name="name">Créér un produit</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- Menu principal de l'application "ESI Lecture" -->
+    <menuitem id="main_esi_lecture_menu" name="ESI Lecture" />
+
+    <!-- Sous-menus dans "ESI Lecture" -->
+    <menuitem id="esi_lecture_menu" name="Gestion de livres" parent="main_esi_lecture_menu" />
+    <menuitem id="esi_lecture_menu_achat" name="Achat" parent="main_esi_lecture_menu" />
+    <menuitem id="esi_lecture_menu_vente" name="Vente" parent="main_esi_lecture_menu" />
+
+    <!-- Menu "Livres" dans "Gestion de livres" -->
+    <menuitem id="book_menu" action="book_list_action" parent="esi_lecture_menu"/>
+
+    <!-- Menu "Produits" dans "Gestion de livres" -->
+    <menuitem id="menu_esi_lecture_book_products_list" name="Produits" parent="esi_lecture_menu" action="product_template_list_action"/>
+
+    <!-- Menu "Créér un produit" dans "Gestion de livres" -->
+    <menuitem id="menu_esi_lecture_book_products_form" name="Créér un produit" parent="esi_lecture_menu" action="product_template_form_action"/>
+
+    <!-- Menu "Auteurs" dans "Gestion de livres" -->
+    <menuitem id="menu_author_list" name="Auteurs" parent="esi_lecture_menu" action="action_author"/>
+
+    <!-- Lien vers l'action stock_picking_type_action (achat) -->
+    <menuitem id="menu_achat" name="Achat" parent="esi_lecture_menu_achat" action="stock.stock_picking_type_action"/>
+
+    <!-- Lien vers l'action action_pos_config_kanban (vente) -->
+    <menuitem id="menu_vente" name="Vente" parent="esi_lecture_menu_vente" action="point_of_sale.action_pos_config_kanban"/>
+</odoo>
+
